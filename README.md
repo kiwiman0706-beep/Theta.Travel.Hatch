@@ -9,7 +9,7 @@
 
 ## インストール
 
-1. [最新リリース](https://github.com/kiwiman0706-beep/Theta.Travel.Hatch/releases/latest) から `tabi-no-tane-x.y.z.apk` をスマホでダウンロード
+1. スマホで [**tabi-no-tane-0.1.0.apk をダウンロード**](https://github.com/kiwiman0706-beep/Theta.Travel.Hatch/releases/download/v0.1.0/tabi-no-tane-0.1.0.apk)（他の版は [Releases](https://github.com/kiwiman0706-beep/Theta.Travel.Hatch/releases)）
 2. 「提供元不明のアプリ」のインストールを許可して開く
 3. 2回目以降は**アンインストールせずに上書き**します（データは端末内に残ります）
 
