@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>たびのたね</title>
+<link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+<link rel="stylesheet" href="vendor/markercluster/MarkerCluster.css">
+<link rel="stylesheet" href="vendor/markercluster/MarkerCluster.Default.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+  <header class="header">
+    <div class="brand"><span class="logo" aria-hidden="true">✦</span><span>たびのたね<small>THETA TRAVEL HATCH</small></span></div>
+    <button class="icon-btn active" type="button" data-action="settings" aria-label="設定">⚙</button>
+    <button class="add-btn active" type="button" data-action="add-menu" aria-label="追加">＋</button>
+  </header>
+  <main class="main" id="main" aria-live="polite"></main>
+  <nav class="nav" aria-label="アプリの画面">
+    <button type="button" data-screen="home"><span aria-hidden="true">⌂</span>ホーム</button>
+    <button type="button" data-screen="spots"><span aria-hidden="true">◎</span>スポット</button>
+    <button type="button" data-screen="plans"><span aria-hidden="true">▤</span>しおり</button>
+    <button type="button" data-screen="history"><span aria-hidden="true">✧</span>思い出</button>
+  </nav>
+</div>
+<div class="modal" id="modal" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+    <div class="sheet-top"><h2 id="sheet-title"></h2><button class="close" type="button" data-action="close" aria-label="閉じる">×</button></div>
+    <div class="sheet-body" id="sheet-body"></div>
+    <div class="sheet-foot" id="sheet-foot"></div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" hidden></div>
+<script src="vendor/leaflet/leaflet.js"></script>
+<script src="vendor/markercluster/leaflet.markercluster.js"></script>
+<script src="js/core.js"></script>
+<script src="js/native.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+{
+  "package": "たびのたね 旅行アプリ引き継ぎ",
+  "created_at_jst": "2026-10-17",
+  "artifact_status": "concept and interactive mockup; Android APK not yet built",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 1972,
+      "sha256": "99b3ec05e8a8a2d4e2e654ffc577a1b3386e71a75d5e52443bc75598447f6d28"
+    },
+    {
+      "path": "handoff/NEXT_THREAD_PROMPT.md",
+      "bytes": 1386,
+      "sha256": "32664328acfc7e65b4122dad5f211375cd99687ddefd51796653c8bd9f8e0a7e"
+    },
+    {
+      "path": "handoff/STATUS.md",
+      "bytes": 2177,
+      "sha256": "579759acc2e3f78df81299f0cd009fcb40eccaa946979ee7d2230ed12e3a332a"
+    },
+    {
+      "path": "mockup/archive/tabi-no-tane-original-snapshot.html",
+      "bytes": 118701,
+      "sha256": "7d31f22dd88a233405462c5726d94d9b5afd1f673557981bff6d826556b2aba5"
+    },
+    {
+      "path": "mockup/source/travel-mockup-fragment.html",
+      "bytes": 39646,
+      "sha256": "b2bbe0a93e1844a7d5e15efa0ba5e2e22d7f3664519b4f5c989c32ad69d0c3a5"
+    },
+    {
+      "path": "mockup/tabi-no-tane-portable.html",
+      "bytes": 40003,
+      "sha256": "55edc51a2e03124902a566783ea87826d49db456a51fdd0ea567027bde41257e"
+    },
+    {
+      "path": "requirements/implementation-spec.md",
+      "bytes": 4484,
+      "sha256": "664c4b68bec76b06d8ea2a5691cedbe33404f62ee9cf94c105297555959bed4a"
+    },
+    {
+      "path": "requirements/travel-app-concept-v0.1.md",
+      "bytes": 9472,
+      "sha256": "d8af9e796f31ee0d734b70c53361fc39cde02199454e71c5d6ed92abceb018ee"
+    },
+    {
+      "path": "requirements/user-requests.md",
+      "bytes": 3391,
+      "sha256": "bbbed96b1e05b4aac09be2bef2881e040fd73d987e03c888d99d4b85e27eddb8"
+    }
+  ]
+}

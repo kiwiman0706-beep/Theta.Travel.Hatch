@@ -1,0 +1,80 @@
+name: release-apk
+
+# Publishes an already-signed APK from releases/ as a GitHub Release.
+# The signing key is NOT in this public repository (see docs/SIGNING_KEY_POLICY.md),
+# so CI never signs anything: it only verifies that the committed APK is signed by
+# the same certificate as the distributed app, then attaches it.
+#
+#   1. Push a tag like v0.1.0, or
+#   2. Run this workflow manually with a `version` input (the tag is created).
+#   A tag containing '-' (v0.2.0-beta.1) is published as a pre-release.
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Tag to create & release (e.g. v0.1.0)'
+        required: true
+        default: v0.1.0
+
+permissions:
+  contents: write
+
+env:
+  RELEASE_TAG: ${{ github.event.inputs.version || github.ref_name }}
+  PACKAGE: jp.theta.travelhatch
+  # Distribution certificate of jp.theta.travelhatch. A mismatch means the APK would
+  # not install over the existing app — fail loudly.
+  EXPECTED_CERT_SHA256: 049ca448c59a75ad4e7202cefa0b0559b31b8a8eecca0a87dc622353c42a60c0
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Locate APK
+        run: |
+          VERSION="${RELEASE_TAG#v}"
+          APK="releases/tabi-no-tane-${VERSION}.apk"
+          [ -f "$APK" ] || { echo "::error::$APK not found"; exit 1; }
+          [ -f "docs/release-notes/${RELEASE_TAG}.md" ] || { echo "::error::docs/release-notes/${RELEASE_TAG}.md not found"; exit 1; }
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+          echo "APK=$APK" >> "$GITHUB_ENV"
+
+      - name: Verify signature, certificate, package and version
+        run: |
+          BT="$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)"
+          "$BT/apksigner" verify --verbose --print-certs "$APK" | tee verify.txt
+          grep -q "Verified using v3 scheme (APK Signature Scheme v3): true" verify.txt \
+            || { echo "::error::APK is not v3-signed"; exit 1; }
+          grep -qi "certificate SHA-256 digest: $EXPECTED_CERT_SHA256" verify.txt \
+            || { echo "::error::Signing certificate differs from the distributed app"; exit 1; }
+          "$BT/aapt2" dump badging "$APK" | head -1 | tee badging.txt
+          grep -q "name='$PACKAGE'" badging.txt \
+            || { echo "::error::Unexpected package name"; exit 1; }
+          grep -q "versionName='$VERSION'" badging.txt \
+            || { echo "::error::APK versionName does not match tag $RELEASE_TAG"; exit 1; }
+
+      - name: Checksums
+        run: |
+          (cd releases && sha256sum "$(basename "$APK")") > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+          if [ -f "releases/SHA256SUMS-${VERSION}.txt" ]; then
+            diff <(awk '{print $1}' SHA256SUMS.txt) <(awk '{print $1}' "releases/SHA256SUMS-${VERSION}.txt") \
+              || { echo "::error::APK bytes differ from the committed checksum"; exit 1; }
+          fi
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.RELEASE_TAG }}
+          target_commitish: ${{ github.sha }}
+          name: たびのたね ${{ env.VERSION }}（Theta.Travel.Hatch）
+          body_path: docs/release-notes/${{ env.RELEASE_TAG }}.md
+          prerelease: ${{ contains(env.RELEASE_TAG, '-') }}
+          files: |
+            ${{ env.APK }}
+            SHA256SUMS.txt

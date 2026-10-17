@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">たびのたね</string>
+    <string name="voice_prompt">行きたい場所やおでかけの条件を話してください</string>
+    <string name="voice_unavailable">この端末では音声入力を使えません</string>
+</resources>

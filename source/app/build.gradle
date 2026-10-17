@@ -1,0 +1,60 @@
+plugins {
+    id 'com.android.application'
+}
+
+// versionName/versionCode can be overridden from CI: -PappVersionName=0.2.0
+// versionCode = major*10000 + minor*100 + patch (0.1.0 -> 100)
+def appVersionName = project.findProperty('appVersionName') ?: '0.1.0'
+def parts = appVersionName.tokenize('-')[0].tokenize('.').collect { it as int }
+def appVersionCode = parts[0] * 10000 + parts[1] * 100 + parts[2]
+
+android {
+    namespace 'jp.theta.travelhatch'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'jp.theta.travelhatch'
+        minSdk 28
+        targetSdk 35
+        versionCode appVersionCode
+        versionName appVersionName
+    }
+
+    // Release signing comes from environment variables only; the keystore is never
+    // committed (see docs/SIGNING_KEY_POLICY.md).
+    signingConfigs {
+        release {
+            def ks = System.getenv('TRAVEL_KEYSTORE_PATH')
+            if (ks) {
+                storeFile file(ks)
+                storePassword System.getenv('TRAVEL_STORE_PASSWORD')
+                keyAlias System.getenv('TRAVEL_KEY_ALIAS') ?: 'travelhatch'
+                keyPassword System.getenv('TRAVEL_KEY_PASSWORD') ?: System.getenv('TRAVEL_STORE_PASSWORD')
+            }
+            enableV2Signing true
+            enableV3Signing true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            if (System.getenv('TRAVEL_KEYSTORE_PATH')) {
+                signingConfig signingConfigs.release
+            }
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    lint {
+        abortOnError false
+    }
+}
+
+dependencies {
+    implementation 'androidx.webkit:webkit:1.12.1'
+}

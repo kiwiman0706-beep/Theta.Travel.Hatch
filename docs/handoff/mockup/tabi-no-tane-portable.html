@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>たびのたね — 旅行アプリ モックアップ</title>
+<style>body{margin:0;padding:16px 8px;background:#f7f5ee}@media(prefers-color-scheme:dark){body{background:#141a1c}}</style>
+</head>
+<body>
+<div id="travel-mockup" class="viz-dotted-background">
+  <div class="tm-phone">
+    <header class="tm-header">
+      <div class="tm-brand"><span class="tm-logo" aria-hidden="true">✦</span><span>たびのたね<small>TRIP NOTE</small></span></div>
+      <button class="tm-add cursor-interaction" type="button" data-action="add" aria-label="行きたい場所や思い出を追加">＋</button>
+    </header>
+    <main class="tm-main" aria-live="polite"></main>
+    <nav class="tm-nav" aria-label="アプリの画面">
+      <button class="cursor-interaction" type="button" data-screen="home"><span aria-hidden="true">⌂</span>ホーム</button>
+      <button class="cursor-interaction" type="button" data-screen="wish"><span aria-hidden="true">◎</span>スポット</button>
+      <button class="cursor-interaction" type="button" data-screen="plan"><span aria-hidden="true">▤</span>しおり</button>
+      <button class="cursor-interaction" type="button" data-screen="history"><span aria-hidden="true">✧</span>思い出</button>
+    </nav>
+    <div class="tm-modal" hidden>
+      <div class="tm-dialog" role="dialog" aria-modal="true" aria-labelledby="tm-modal-title">
+        <div class="tm-dialog-top"><span class="tm-dialog-icon">✦</span><button class="tm-close cursor-interaction" type="button" data-action="close" aria-label="閉じる">×</button></div>
+        <h2 id="tm-modal-title">行きたい！を追加</h2>
+        <p>場所の名前や気になった記事のURLを入れてね。</p>
+        <label for="tm-place">場所・メモ</label>
+        <input id="tm-place" type="text" placeholder="例：白浜でパンダを見たい" autocomplete="off"><label for="tm-region" style="margin-top:13px">地図に置く地域</label><select id="tm-region"><option value="大阪">大阪</option><option value="和歌山">和歌山</option><option value="奈良">奈良</option><option value="神戸">神戸</option></select>
+        <p class="tm-modal-error" role="alert" hidden>場所を入力してください。</p>
+        <button class="tm-primary cursor-interaction" type="button" data-action="save-place">行きたいリストに入れる　→</button>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+#travel-mockup{display:flex;justify-content:center;padding:12px 2px 24px;color-scheme:light dark}
+#travel-mockup *{box-sizing:border-box}
+#travel-mockup .tm-phone{--tm-bg:light-dark(#fffaf1,#1c2327);--tm-paper:light-dark(#ffffff,#29333a);--tm-text:light-dark(#26313b,#f6f0e6);--tm-soft:light-dark(#65747c,#b9c5c9);--tm-line:light-dark(#e9e3d6,#465159);--tm-teal:light-dark(#0c7d82,#62c9c5);--tm-teal-ink:light-dark(#ffffff,#16282c);--tm-mint:light-dark(#e8f7f1,#244240);--tm-yellow:light-dark(#fff0bd,#58482d);--tm-coral:light-dark(#e16e57,#ffa38e);--tm-blue:light-dark(#d9eefa,#254456);--tm-shadow:light-dark(rgba(38,54,53,.12),rgba(0,0,0,.28));position:relative;width:min(100%,420px);min-width:0;background:var(--tm-bg);color:var(--tm-text);border:1px solid var(--tm-line);border-radius:29px;overflow:hidden;box-shadow:0 14px 38px var(--tm-shadow);font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif;line-height:1.45}
+#travel-mockup button,#travel-mockup input,#travel-mockup textarea{font:inherit}
+#travel-mockup button{border:0;cursor:pointer}
+#travel-mockup button:focus-visible,#travel-mockup input:focus-visible,#travel-mockup textarea:focus-visible{outline:3px solid var(--tm-coral);outline-offset:2px}
+#travel-mockup .tm-header{height:64px;padding:10px 17px 10px 21px;display:flex;align-items:center;justify-content:space-between;background:var(--tm-bg)}
+#travel-mockup .tm-brand{display:flex;gap:8px;align-items:center;font-size:19px;font-weight:800;letter-spacing:.02em;line-height:1.05}
+#travel-mockup .tm-brand small{display:block;font-size:9px;font-weight:800;letter-spacing:.2em;color:var(--tm-teal);margin-top:5px}
+#travel-mockup .tm-logo{width:34px;height:34px;border-radius:11px;background:var(--tm-teal);color:var(--tm-teal-ink);display:grid;place-items:center;font-size:22px;transform:rotate(-8deg)}
+#travel-mockup .tm-add{width:44px;height:44px;border-radius:15px;background:var(--tm-yellow);color:var(--tm-text);font-size:27px;line-height:1}
+#travel-mockup .tm-main{min-height:470px;padding:0 16px 21px}
+#travel-mockup .tm-main h1,#travel-mockup .tm-main h2,#travel-mockup .tm-main h3,#travel-mockup .tm-dialog h2{margin:0;line-height:1.25}
+#travel-mockup .tm-eyebrow{font-size:11px;letter-spacing:.13em;color:var(--tm-teal);font-weight:800}
+#travel-mockup .tm-hero{position:relative;min-height:184px;border-radius:24px;overflow:hidden;background:linear-gradient(145deg,light-dark(#8cd9d0,#216d70),light-dark(#cae9c2,#41716c));padding:22px 20px;color:light-dark(#173d42,#f5fff9)}
+#travel-mockup .tm-hero h1{position:relative;z-index:2;font-size:25px;font-weight:850;letter-spacing:.02em;margin-top:10px}
+#travel-mockup .tm-hero p{position:relative;z-index:2;margin:10px 0 0;font-size:12px;font-weight:700}
+#travel-mockup .tm-hero .tm-sun{position:absolute;right:27px;top:16px;width:58px;height:58px;border-radius:50%;background:light-dark(#ffe7a2,#e8b768);box-shadow:0 0 0 10px light-dark(rgba(255,243,200,.32),rgba(255,224,144,.13))}
+#travel-mockup .tm-hero .tm-hill-a,#travel-mockup .tm-hero .tm-hill-b{position:absolute;border-radius:50%}
+#travel-mockup .tm-hero .tm-hill-a{width:240px;height:95px;right:-48px;bottom:-49px;background:light-dark(#60bdb1,#235d5c)}
+#travel-mockup .tm-hero .tm-hill-b{width:230px;height:80px;left:-70px;bottom:-60px;background:light-dark(#49a99e,#205351)}
+#travel-mockup .tm-hero .tm-stamp{position:absolute;right:28px;bottom:18px;z-index:3;background:var(--tm-paper);color:var(--tm-coral);border-radius:999px;padding:6px 10px;font-size:12px;font-weight:800;transform:rotate(-9deg);box-shadow:0 3px 0 var(--tm-shadow)}
+#travel-mockup .tm-query{padding:18px 0 2px}
+#travel-mockup .tm-query label,#travel-mockup .tm-dialog label{display:block;font-size:14px;font-weight:800;margin-bottom:8px}
+#travel-mockup .tm-query input,#travel-mockup .tm-dialog input,#travel-mockup .tm-history-search{width:100%;height:48px;border:1px solid var(--tm-line);border-radius:14px;padding:0 14px;background:var(--tm-paper);color:var(--tm-text);font-size:16px}
+#travel-mockup input::placeholder{color:var(--tm-soft);opacity:1}
+#travel-mockup .tm-chips{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}
+#travel-mockup .tm-chip{min-height:39px;padding:7px 11px;border-radius:999px;background:var(--tm-paper);border:1px solid var(--tm-line);color:var(--tm-text);font-size:13px;font-weight:700}
+#travel-mockup .tm-chip[aria-pressed="true"]{background:var(--tm-yellow);border-color:var(--tm-yellow)}
+#travel-mockup .tm-primary{width:100%;min-height:48px;border-radius:14px;background:var(--tm-teal);color:var(--tm-teal-ink);font-size:14px;font-weight:800;padding:10px 14px}
+#travel-mockup .tm-primary:active,#travel-mockup .tm-add:active,#travel-mockup .tm-chip:active{transform:translateY(1px)}
+#travel-mockup .tm-section-head{display:flex;justify-content:space-between;align-items:end;gap:10px;margin:22px 1px 10px}
+#travel-mockup .tm-section-head h2{font-size:17px;font-weight:800}
+#travel-mockup .tm-text-link{background:transparent;color:var(--tm-teal);font-size:12px;font-weight:800;min-height:34px;padding:5px}
+#travel-mockup .tm-list{display:grid;gap:9px}
+#travel-mockup .tm-place-card,#travel-mockup .tm-suggest-card,#travel-mockup .tm-plan-card,#travel-mockup .tm-log-card{background:var(--tm-paper);border:1px solid var(--tm-line);border-radius:18px;padding:12px}
+#travel-mockup .tm-place-card{display:grid;grid-template-columns:66px minmax(0,1fr);gap:10px;align-items:center}
+#travel-mockup .tm-art{height:66px;width:66px;display:grid;place-items:center;border-radius:14px;font-size:35px;background:var(--tm-blue)}
+#travel-mockup .tm-art.peach{background:light-dark(#ffdfd1,#604139)}
+#travel-mockup .tm-art.mint{background:var(--tm-mint)}
+#travel-mockup .tm-art.yellow{background:var(--tm-yellow)}
+#travel-mockup .tm-card-title{font-size:14px;font-weight:800;line-height:1.3;overflow-wrap:anywhere}
+#travel-mockup .tm-card-meta{font-size:11px;color:var(--tm-soft);font-weight:700;margin-top:5px}
+#travel-mockup .tm-card-action{display:inline-block;background:transparent;color:var(--tm-teal);font-size:11px;font-weight:800;min-height:32px;padding:3px 0;text-align:left}
+#travel-mockup .tm-suggest-card{margin-top:14px;padding:15px;background:var(--tm-yellow);border-color:transparent}
+#travel-mockup .tm-suggest-card .tm-result-icon{font-size:32px;float:right;margin-left:10px}
+#travel-mockup .tm-suggest-card h2{font-size:20px;margin:6px 0}
+#travel-mockup .tm-suggest-card p{font-size:13px;line-height:1.55;margin:5px 0 12px}
+#travel-mockup .tm-suggest-card .tm-primary{background:var(--tm-paper);color:var(--tm-text);min-height:42px}
+#travel-mockup .tm-page-top{padding:10px 3px 6px}
+#travel-mockup .tm-page-top h1{font-size:23px;margin:4px 0 5px}
+#travel-mockup .tm-page-top p{color:var(--tm-soft);margin:0;font-size:12px}
+#travel-mockup .tm-count{font-size:11px;font-weight:800;color:var(--tm-teal);margin:12px 2px 8px}
+#travel-mockup .tm-wish-card{margin-bottom:10px}
+#travel-mockup .tm-wish-card .tm-place-card{margin:0}
+#travel-mockup .tm-plan-cover{border-radius:22px;padding:18px;background:linear-gradient(135deg,light-dark(#cee9ed,#2c5b61),light-dark(#fce8c0,#775e3b));position:relative;overflow:hidden;min-height:132px}
+#travel-mockup .tm-plan-cover .tm-panda{position:absolute;right:10px;bottom:-10px;font-size:84px;transform:rotate(8deg)}
+#travel-mockup .tm-plan-cover h2{font-size:21px;max-width:72%;position:relative;z-index:1;margin:8px 0}
+#travel-mockup .tm-plan-cover p{position:relative;z-index:1;margin:0;font-size:12px;font-weight:750}
+#travel-mockup .tm-day-tabs,#travel-mockup .tm-view-tabs{display:flex;gap:7px;margin:14px 0}
+#travel-mockup .tm-day-tabs button,#travel-mockup .tm-view-tabs button{min-height:40px;border-radius:11px;padding:7px 15px;background:var(--tm-paper);color:var(--tm-text);font-size:13px;font-weight:800;border:1px solid var(--tm-line)}
+#travel-mockup .tm-day-tabs button[aria-pressed="true"],#travel-mockup .tm-view-tabs button[aria-pressed="true"]{background:var(--tm-teal);color:var(--tm-teal-ink);border-color:var(--tm-teal)}
+#travel-mockup .tm-timeline{padding:4px 0 5px 9px}
+#travel-mockup .tm-stop{position:relative;padding:2px 3px 18px 24px;border-left:2px dashed var(--tm-line);margin-left:8px;min-height:64px}
+#travel-mockup .tm-stop:last-child{border-left-color:transparent;padding-bottom:0}
+#travel-mockup .tm-stop::before{content:'';position:absolute;left:-7px;top:7px;width:12px;height:12px;border-radius:50%;background:var(--tm-coral);border:2px solid var(--tm-paper)}
+#travel-mockup .tm-stop strong{font-size:13px}
+#travel-mockup .tm-stop p{font-size:12px;color:var(--tm-soft);margin:3px 0 0}
+#travel-mockup .tm-note{border-radius:14px;background:var(--tm-mint);padding:11px 13px;font-size:12px;line-height:1.5;margin:4px 0 13px}
+#travel-mockup .tm-outline{width:100%;min-height:44px;border-radius:13px;background:var(--tm-paper);border:1px solid var(--tm-line)!important;color:var(--tm-teal);font-weight:800;font-size:13px;margin-top:9px}
+#travel-mockup .tm-history-search{margin:11px 0 3px}
+#travel-mockup .tm-log-card{display:flex;align-items:center;gap:11px;margin:9px 0}
+#travel-mockup .tm-log-icon{width:42px;height:42px;flex:none;display:grid;place-items:center;background:var(--tm-yellow);border-radius:13px;font-size:24px}
+#travel-mockup .tm-log-card strong{font-size:14px;display:block}
+#travel-mockup .tm-log-card span{font-size:11px;color:var(--tm-soft)}
+#travel-mockup .tm-table{width:100%;border-collapse:collapse;font-size:12px;background:var(--tm-paper);border-radius:13px;overflow:hidden}
+#travel-mockup .tm-table th,#travel-mockup .tm-table td{text-align:left;padding:11px 8px;border-bottom:1px solid var(--tm-line);overflow-wrap:anywhere}
+#travel-mockup .tm-table th{font-size:11px;color:var(--tm-soft)}
+#travel-mockup .tm-table tr:last-child td{border-bottom:0}
+#travel-mockup .tm-map{height:300px;border-radius:18px;background:linear-gradient(150deg,light-dark(#e9f5e7,#30483f),light-dark(#e5f4ed,#35524d));position:relative;overflow:hidden;border:1px solid var(--tm-line)}
+#travel-mockup .tm-map::before,#travel-mockup .tm-map::after{content:'';position:absolute;border-radius:48%;transform:rotate(-24deg)}
+#travel-mockup .tm-map::before{width:430px;height:64px;left:-18px;top:98px;background:light-dark(#cbeaf0,#376a73);box-shadow:0 0 0 10px light-dark(#dcefdc,#375449)}
+#travel-mockup .tm-map::after{width:330px;height:10px;left:16px;top:185px;background:light-dark(#fff8e9,#b3ab87);box-shadow:0 -70px 0 1px light-dark(#fff8e9,#b3ab87),0 60px 0 1px light-dark(#fff8e9,#b3ab87);transform:rotate(32deg)}
+#travel-mockup .tm-map-label{position:absolute;font-size:11px;font-weight:850;color:light-dark(#376063,#bed8ce);z-index:1}
+#travel-mockup .tm-map-label.osaka{left:37%;top:29%}
+#travel-mockup .tm-map-label.kobe{left:14%;top:49%}
+#travel-mockup .tm-map-label.shirahama{left:59%;top:77%}
+#travel-mockup .tm-pin{position:absolute;z-index:3;width:38px;height:38px;border-radius:15px 15px 15px 3px;transform:rotate(-45deg);background:var(--tm-coral);color:light-dark(#fff,#2b2424);display:grid;place-items:center;box-shadow:0 3px 7px var(--tm-shadow);border:2px solid var(--tm-paper)!important}
+#travel-mockup .tm-pin span{transform:rotate(45deg);font-size:17px}
+#travel-mockup .tm-pin.one{top:37%;left:48%}
+#travel-mockup .tm-pin.two{top:58%;left:19%}
+#travel-mockup .tm-pin.three{top:72%;left:66%}
+#travel-mockup .tm-map-note{font-size:11px;color:var(--tm-soft);margin:9px 1px}
+#travel-mockup .tm-empty{padding:24px 12px;text-align:center;color:var(--tm-soft);font-size:13px}
+#travel-mockup .tm-nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;padding:7px 7px 10px;border-top:1px solid var(--tm-line);background:var(--tm-paper)}
+#travel-mockup .tm-nav button{display:grid;gap:2px;place-items:center;min-width:0;min-height:50px;border-radius:11px;background:transparent;color:var(--tm-soft);font-size:10px;font-weight:800;padding:3px 0}
+#travel-mockup .tm-nav button span{font-size:21px;line-height:1}
+#travel-mockup .tm-nav button[aria-current="page"]{background:var(--tm-mint);color:var(--tm-teal)}
+#travel-mockup .tm-modal[hidden],#travel-mockup .tm-modal-error[hidden]{display:none!important}
+#travel-mockup .tm-modal{position:absolute;inset:0;z-index:20;background:light-dark(rgba(29,44,43,.52),rgba(0,0,0,.65));padding:90px 15px 20px;display:flex;align-items:flex-start;justify-content:center}
+#travel-mockup .tm-dialog{background:var(--tm-paper);border-radius:22px;padding:20px;width:100%;box-shadow:0 15px 38px var(--tm-shadow)}
+#travel-mockup .tm-dialog-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
+#travel-mockup .tm-dialog-icon{background:var(--tm-yellow);border-radius:11px;display:grid;place-items:center;width:38px;height:38px;color:var(--tm-coral);font-size:22px}
+#travel-mockup .tm-close{background:transparent;color:var(--tm-soft);font-size:27px;min-height:42px;min-width:42px}
+#travel-mockup .tm-dialog h2{font-size:20px}
+#travel-mockup .tm-dialog p{font-size:12px;color:var(--tm-soft);margin:8px 0 18px}
+#travel-mockup .tm-dialog .tm-primary{margin-top:14px}
+#travel-mockup .tm-dialog .tm-modal-error{color:var(--tm-coral);margin:5px 0 0}
+#travel-mockup .tm-toast{margin-top:10px;padding:9px 11px;border-radius:10px;background:var(--tm-mint);font-size:12px;color:var(--tm-text);font-weight:700}
+@media(max-width:360px){#travel-mockup{padding-inline:0}#travel-mockup .tm-phone{border-radius:20px}#travel-mockup .tm-main{padding-inline:12px}#travel-mockup .tm-hero h1{font-size:22px}}
+@media(prefers-reduced-motion:no-preference){#travel-mockup button{transition:transform .12s ease,background-color .15s ease}}
+
+#travel-mockup .tm-dialog select,#travel-mockup .tm-route-form input,#travel-mockup .tm-route-card input,#travel-mockup .tm-pack-add input{width:100%;min-height:46px;border:1px solid var(--tm-line);border-radius:12px;background:var(--tm-paper);color:var(--tm-text);font-size:16px;padding:9px 12px}
+#travel-mockup .tm-spot-filters{margin:7px 0 12px}
+#travel-mockup .tm-spot-filters .tm-chip{min-height:38px;font-size:12px}
+#travel-mockup .tm-legend{display:flex;gap:12px;flex-wrap:wrap;margin:8px 2px 10px;font-size:11px;font-weight:750;color:var(--tm-soft)}
+#travel-mockup .tm-legend span{display:inline-flex;align-items:center;gap:5px}
+#travel-mockup .tm-dot{width:10px;height:10px;display:inline-block;border-radius:50%;background:var(--tm-coral)}
+#travel-mockup .tm-dot.visited{background:var(--tm-teal)}
+#travel-mockup .tm-dot.both{background:light-dark(#e4ac38,#e0bd75)}
+#travel-mockup .tm-map-label.nara{left:76%;top:25%}
+#travel-mockup .tm-map{height:330px}
+#travel-mockup .tm-pin{margin-left:-18px;margin-top:-18px}
+#travel-mockup .tm-pin.wish{background:var(--tm-coral)}
+#travel-mockup .tm-pin.visited{background:var(--tm-teal)}
+#travel-mockup .tm-pin.both{background:light-dark(#e4ac38,#e0bd75)}
+#travel-mockup .tm-map-detail{margin-top:9px;background:var(--tm-paper);border:1px solid var(--tm-line);border-radius:14px;padding:10px 12px;display:grid;gap:3px}
+#travel-mockup .tm-map-detail strong{font-size:13px}
+#travel-mockup .tm-map-detail span,#travel-mockup .tm-spot-status{font-size:11px;color:var(--tm-soft)}
+#travel-mockup .tm-spot-status{display:block;margin:4px 0 0 8px}
+#travel-mockup .tm-plan-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin:14px 0 8px}
+#travel-mockup .tm-plan-tabs button{min-height:44px;border-radius:11px;padding:6px 4px;background:var(--tm-paper);color:var(--tm-text);border:1px solid var(--tm-line);font-size:12px;font-weight:800}
+#travel-mockup .tm-plan-tabs button[aria-pressed="true"]{background:var(--tm-teal);color:var(--tm-teal-ink);border-color:var(--tm-teal)}
+#travel-mockup .tm-route-card{background:var(--tm-paper);border:1px solid var(--tm-line);border-radius:17px;padding:15px;margin:12px 0}
+#travel-mockup .tm-route-card strong{font-size:14px}
+#travel-mockup .tm-route-card p{font-size:12px;color:var(--tm-soft);margin:9px 0}
+#travel-mockup .tm-route-card label,#travel-mockup .tm-route-form label{font-size:12px;font-weight:800;display:block;margin:8px 0 5px}
+#travel-mockup .tm-route-stops{display:grid;gap:8px;margin:12px 0;font-size:13px;font-weight:750}
+#travel-mockup .tm-route-stops div{display:flex;gap:10px;align-items:center}
+#travel-mockup .tm-route-stops b{width:16px;color:var(--tm-coral);text-align:center}
+#travel-mockup .tm-route-edit{border:1px solid var(--tm-line);border-radius:14px;background:var(--tm-paper);padding:10px 13px}
+#travel-mockup .tm-route-edit summary{font-size:13px;font-weight:800;color:var(--tm-teal);min-height:30px;padding-top:5px}
+#travel-mockup .tm-route-form{padding:4px 0 5px}
+#travel-mockup .tm-route-form .tm-primary{margin-top:14px}
+#travel-mockup .tm-pack-count{font-size:12px;font-weight:800;color:var(--tm-teal)}
+#travel-mockup .tm-pack-progress{height:8px;background:var(--tm-line);border-radius:999px;overflow:hidden;margin:11px 2px}
+#travel-mockup .tm-pack-progress i{display:block;height:100%;background:var(--tm-teal);border-radius:999px}
+#travel-mockup .tm-pack-list{display:grid;gap:8px;margin:14px 0}
+#travel-mockup .tm-pack-row{min-height:48px;display:flex;gap:11px;align-items:center;padding:8px 12px;border:1px solid var(--tm-line);border-radius:13px;background:var(--tm-paper);font-size:13px;font-weight:750}
+#travel-mockup .tm-pack-row input{width:19px;height:19px;accent-color:var(--tm-teal);flex:none}
+#travel-mockup .tm-pack-row .done{text-decoration:line-through;color:var(--tm-soft)}
+#travel-mockup .tm-pack-add{display:grid;grid-template-columns:minmax(0,1fr) 48px;gap:7px}
+#travel-mockup .tm-pack-add button{border-radius:13px;background:var(--tm-yellow);color:var(--tm-text);font-size:26px}
+</style>
+<script>
+(() => {
+  const root=document.getElementById('travel-mockup');
+  const main=root.querySelector('.tm-main');
+  const modal=root.querySelector('.tm-modal');
+  const state={screen:'home',condition:'rain',query:'',suggested:false,selected:'アドベンチャーワールド',day:1,planSection:'itinerary',transportMode:'transit',routeDir:'out',spotView:'map',spotFilter:'all',historyView:'list',historyQuery:'',toast:'',mapPick:'',places:[{name:'アドベンチャーワールド',icon:'🐼',tone:'peach',meta:'白浜 · 動物と一日たっぷり',region:'和歌山'},{name:'奈良公園',icon:'🦌',tone:'mint',meta:'奈良 · のんびりお散歩',region:'奈良'},{name:'海遊館',icon:'🐠',tone:'yellow',meta:'大阪 · 雨の日の候補',region:'大阪'}],visits:[{date:'2026.08',name:'海遊館',weather:'☔ 雨',icon:'🐠'},{date:'2026.05',name:'神戸どうぶつ王国',weather:'☀ 晴れ',icon:'🦜'},{date:'2025.12',name:'白浜',weather:'☁ くもり',icon:'🌊'}],routes:{out:{from:'大阪駅',via:'天王寺駅',to:'白浜駅',time:'14:00',memo:'路線・便・切符のメモ'},back:{from:'白浜駅',via:'天王寺駅',to:'大阪駅',time:'15:00',memo:'帰りの便を登録'}},carNote:'駐車場・休憩場所をメモ',pack:[{name:'チケット・予約確認',done:true},{name:'子どもの着替え',done:false},{name:'レインコート',done:false},{name:'おやつ・飲み物',done:true},{name:'充電器',done:false},{name:'保険証',done:false}]};
+  const esc=(s)=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const button=(label,action,cls='tm-primary')=>`<button class="${cls} cursor-interaction" type="button" data-action="${action}">${label}</button>`;
+  function placeCard(p,action='plan-place'){return `<div class="tm-place-card"><div class="tm-art ${p.tone}" aria-hidden="true">${p.icon}</div><div><div class="tm-card-title">${esc(p.name)}</div><div class="tm-card-meta">${esc(p.meta)}</div><button type="button" class="tm-card-action cursor-interaction" data-action="${action}" data-place="${esc(p.name)}">しおりに入れる →</button></div></div>`}
+  function home(){const candidate=state.condition==='rain'?{name:'海遊館',icon:'🐠',reason:'雨の条件なら屋内の候補。以前の訪問記録も見ながら選べます。'}:state.condition==='overnight'?{name:'アドベンチャーワールド',icon:'🐼',reason:'1泊の行き先として保存済み。休憩を含む行程の下書きを作れます。'}:{name:'奈良公園',icon:'🦌',reason:'午後からのおでかけ候補。出発時刻に合わせて短めの行程を考えます。'};
+    return `<div class="tm-hero"><span class="tm-eyebrow" style="color:inherit">今日のおでかけ、ここから</span><h1>行きたい気持ちが、<br>旅のはじまり。</h1><p>思いついたら、たびのたねに。</p><i class="tm-sun" aria-hidden="true"></i><i class="tm-hill-a" aria-hidden="true"></i><i class="tm-hill-b" aria-hidden="true"></i><span class="tm-stamp">LET'S GO! ✦</span></div><div class="tm-query"><label for="tm-query">どんなおでかけにする？</label><input id="tm-query" value="${esc(state.query)}" placeholder="例：今から白浜に1泊したい"><div class="tm-chips" aria-label="今日の条件"><button class="tm-chip cursor-interaction" type="button" data-condition="rain" aria-pressed="${state.condition==='rain'}">☔ 雨の日</button><button class="tm-chip cursor-interaction" type="button" data-condition="afternoon" aria-pressed="${state.condition==='afternoon'}">🕒 午後から</button><button class="tm-chip cursor-interaction" type="button" data-condition="overnight" aria-pressed="${state.condition==='overnight'}">🧳 今から1泊</button></div>${button('✦　条件に合う場所を見る','suggest')}</div>${state.suggested?`<div class="tm-suggest-card"><span class="tm-result-icon" aria-hidden="true">${candidate.icon}</span><span class="tm-eyebrow">サンプル提案</span><h2>${candidate.name}</h2><p>${candidate.reason}</p><button type="button" class="tm-primary cursor-interaction" data-action="suggest-plan" data-place="${candidate.name}">この場所でしおりを作る →</button></div>`:''}<div class="tm-section-head"><h2>気になる旅のたね</h2><button class="tm-text-link cursor-interaction" type="button" data-screen="wish">地図で見る →</button></div><div class="tm-list">${state.places.slice(0,2).map(p=>placeCard(p)).join('')}</div>`}
+  function allSpots(){
+    const byName=new Map();
+    state.places.forEach(p=>byName.set(p.name,{...p,wish:true,visits:0}));
+    state.visits.forEach(v=>{const p=byName.get(v.name)||{name:v.name,icon:v.icon,tone:'mint',meta:'訪問した場所',region:v.name.includes('神戸')?'神戸':v.name.includes('白浜')?'和歌山':'大阪',wish:false,visits:0};p.visits++;byName.set(v.name,p)});
+    return [...byName.values()];
+  }
+  function status(p){return p.wish&&p.visits?'行きたい・行った':p.wish?'行きたい':'行った'}
+  function position(p,i){const named={'アドベンチャーワールド':[67,70],'奈良公園':[76,34],'海遊館':[46,37],'神戸どうぶつ王国':[21,47],'白浜':[56,81]};if(named[p.name])return named[p.name];const regions={'大阪':[29,61],'和歌山':[31,72],'奈良':[78,55],'神戸':[17,71]};const base=regions[p.region]||[48,55];return [Math.min(82,base[0]+(i%3)*8),Math.min(82,base[1]+(i%3)*9)]}
+  function mapPanel(items){return `<div class="tm-legend"><span><i class="tm-dot wish"></i>行きたい</span><span><i class="tm-dot visited"></i>行った</span><span><i class="tm-dot both"></i>両方</span></div><div class="tm-map" role="group" aria-label="スポットの配置イメージ"><span class="tm-map-label osaka">大阪</span><span class="tm-map-label kobe">神戸</span><span class="tm-map-label nara">奈良</span><span class="tm-map-label shirahama">白浜</span>${items.map((p,i)=>{const [x,y]=position(p,i);const kind=p.wish&&p.visits?'both':p.wish?'wish':'visited';return `<button class="tm-pin cursor-interaction ${kind}" style="left:${x}%;top:${y}%" type="button" data-map-pick="${esc(p.name)}" aria-label="${esc(p.name)}、${status(p)}"><span>${p.icon}</span></button>`}).join('')}</div>${state.mapPick?(()=>{const p=allSpots().find(x=>x.name===state.mapPick);return p?`<div class="tm-map-detail"><strong>${p.icon}　${esc(p.name)}</strong><span>${status(p)}</span><button type="button" class="tm-card-action cursor-interaction" data-action="plan-place" data-place="${esc(p.name)}">この場所でしおりを作る →</button></div>`:''})():''}<p class="tm-map-note">ピンの位置は画面案の例です。実際のアプリでは場所を確認して地図に表示します。</p>`}
+  function wish(){const spots=allSpots();const filtered=spots.filter(p=>state.spotFilter==='all'||state.spotFilter==='wish'&&p.wish||state.spotFilter==='visited'&&p.visits);return `<div class="tm-page-top"><span class="tm-eyebrow">SPOT MAP ◎</span><h1>旅のスポット</h1><p>行きたい場所も、行った場所も、一枚に。</p></div><div class="tm-view-tabs" aria-label="スポットの表示"><button class="cursor-interaction" type="button" data-spot-view="map" aria-pressed="${state.spotView==='map'}">地図</button><button class="cursor-interaction" type="button" data-spot-view="list" aria-pressed="${state.spotView==='list'}">一覧</button></div><div class="tm-chips tm-spot-filters" aria-label="スポットの状態"><button class="tm-chip cursor-interaction" type="button" data-spot-filter="all" aria-pressed="${state.spotFilter==='all'}">すべて ${spots.length}</button><button class="tm-chip cursor-interaction" type="button" data-spot-filter="wish" aria-pressed="${state.spotFilter==='wish'}">♡ 行きたい</button><button class="tm-chip cursor-interaction" type="button" data-spot-filter="visited" aria-pressed="${state.spotFilter==='visited'}">✓ 行った</button></div>${state.spotView==='map'?mapPanel(filtered):`<div class="tm-list">${filtered.map(p=>`<div class="tm-wish-card">${placeCard(p)}<span class="tm-spot-status">${status(p)}</span></div>`).join('')}</div>`}<div style="margin-top:13px">${button('＋　スポットを追加','add','tm-outline')}</div>`}
+  function itinerary(){const n=esc(state.selected);const day1=[['14:00','出発','おやつや休憩の時間も確保'],['16:30','到着・チェックイン','宿泊先はこれから選択'],['18:00','夕食','近くでゆったり']];const day2=[['09:30',n,'営業時間・チケットは要確認'],['12:30','昼食とひと休み','子どものペースで'],['15:00','帰路へ','混雑や天候に合わせて調整']];const entries=state.day===1?day1:day2;return `<div class="tm-day-tabs" aria-label="旅の日程"><button class="cursor-interaction" type="button" data-day="1" aria-pressed="${state.day===1}">1日目</button><button class="cursor-interaction" type="button" data-day="2" aria-pressed="${state.day===2}">2日目</button></div><div class="tm-timeline">${entries.map(e=>`<div class="tm-stop"><strong>${e[0]}　${e[1]}</strong><p>${e[2]}</p></div>`).join('')}</div><div class="tm-note">☔ 雨なら屋内の候補へ変更。営業・空室・移動時間は実際の計画時に確認します。</div>${button('✓　しおりを保存','save-plan')}${button('行った思い出として記録','record','tm-outline')}`}
+  function travel(){const r=state.routes[state.routeDir];return `<div class="tm-section-head"><h2>どうやって行く？</h2></div><div class="tm-day-tabs" aria-label="移動手段"><button class="cursor-interaction" type="button" data-transport="transit" aria-pressed="${state.transportMode==='transit'}">🚃 電車・バス</button><button class="cursor-interaction" type="button" data-transport="car" aria-pressed="${state.transportMode==='car'}">🚗 車</button></div>${state.transportMode==='car'?`<div class="tm-route-card"><strong>車での移動メモ</strong><p>駐車場や立ち寄り場所を書いておけます。</p><label for="tm-car-note">メモ</label><input id="tm-car-note" value="${esc(state.carNote)}">${button('移動メモを保存','save-car','tm-outline')}</div>`:`<div class="tm-day-tabs" aria-label="往復の切替"><button class="cursor-interaction" type="button" data-route-dir="out" aria-pressed="${state.routeDir==='out'}">往路</button><button class="cursor-interaction" type="button" data-route-dir="back" aria-pressed="${state.routeDir==='back'}">復路</button></div><div class="tm-route-card"><span class="tm-eyebrow">登録した乗換メモ</span><div class="tm-route-stops"><div><b>●</b><span>${esc(r.time)}　${esc(r.from)}</span></div><div><b>↳</b><span>${esc(r.via)}で乗換</span></div><div><b>●</b><span>${esc(r.to)} に到着</span></div></div><p>🎫 ${esc(r.memo)}</p></div><details class="tm-route-edit"><summary class="cursor-interaction">✎　乗換情報を編集する</summary><div class="tm-route-form"><label for="tm-from">出発駅・停留所</label><input id="tm-from" value="${esc(r.from)}"><label for="tm-via">乗換駅・停留所</label><input id="tm-via" value="${esc(r.via)}"><label for="tm-to">到着駅・停留所</label><input id="tm-to" value="${esc(r.to)}"><label for="tm-time">出発時刻</label><input id="tm-time" type="time" value="${esc(r.time)}"><label for="tm-route-memo">路線・便・切符のメモ</label><input id="tm-route-memo" value="${esc(r.memo)}">${button('乗換情報を保存','save-route')}</div></details><p class="tm-map-note">時刻と路線は入力例です。実際の乗換案内とは連動していません。</p>`}`}
+  function packing(){const done=state.pack.filter(p=>p.done).length;return `<div class="tm-section-head"><h2>旅の持ち物</h2><span class="tm-pack-count">${done} / ${state.pack.length} 準備OK</span></div><div class="tm-pack-progress" role="progressbar" aria-label="持ち物の準備" aria-valuemin="0" aria-valuemax="${state.pack.length}" aria-valuenow="${done}"><i style="width:${state.pack.length?done/state.pack.length*100:0}%"></i></div><div class="tm-pack-list">${state.pack.map((p,i)=>`<label class="tm-pack-row"><input type="checkbox" data-pack-index="${i}" ${p.done?'checked':''}><span class="${p.done?'done':''}">${esc(p.name)}</span></label>`).join('')}</div><div class="tm-pack-add"><input id="tm-new-pack" aria-label="新しい持ち物" placeholder="持ち物を追加"><button class="cursor-interaction" type="button" data-action="pack-add" aria-label="持ち物を追加">＋</button></div><button class="tm-text-link cursor-interaction" type="button" data-action="pack-suggest">✦　雨の日の持ち物例を追加</button>`}
+  function plan(){const n=esc(state.selected);return `<div class="tm-page-top"><span class="tm-eyebrow">MY TRIP ▤</span><h1>旅のしおり</h1><p>行程も移動も持ち物も、ひとまとめに。</p></div><div class="tm-plan-cover"><span class="tm-eyebrow">サンプルの行程</span><h2>${n}へ<br>わくわく1泊旅</h2><p>大阪発 · 家族のおでかけ</p><span class="tm-panda" aria-hidden="true">🧳</span></div><div class="tm-plan-tabs" aria-label="しおりの内容"><button class="cursor-interaction" type="button" data-plan-section="itinerary" aria-pressed="${state.planSection==='itinerary'}">行程</button><button class="cursor-interaction" type="button" data-plan-section="travel" aria-pressed="${state.planSection==='travel'}">移動・乗換</button><button class="cursor-interaction" type="button" data-plan-section="packing" aria-pressed="${state.planSection==='packing'}">持ち物</button></div>${state.planSection==='itinerary'?itinerary():state.planSection==='travel'?travel():packing()}${state.toast?`<div class="tm-toast" role="status">${esc(state.toast)}</div>`:''}`}
+  function history(){const q=state.historyQuery.trim().toLowerCase();const visits=state.visits.filter(v=>(v.name+v.weather+v.date).toLowerCase().includes(q));const view=state.historyView;return `<div class="tm-page-top"><span class="tm-eyebrow">MEMORIES ✧</span><h1>行ったところ</h1><p>おでかけの記録を、あとから探せる。</p></div><input class="tm-history-search" id="tm-history-query" aria-label="訪問履歴を検索" value="${esc(state.historyQuery)}" placeholder="場所・雨の日・年月で検索"><div class="tm-view-tabs" aria-label="履歴の表示方法"><button class="cursor-interaction" type="button" data-view="list" aria-pressed="${view==='list'}">一覧</button><button class="cursor-interaction" type="button" data-view="table" aria-pressed="${view==='table'}">表</button><button class="cursor-interaction" type="button" data-view="map" aria-pressed="${view==='map'}">地図</button></div>${!visits.length?'<div class="tm-empty">見つかりませんでした。別の言葉で探してみてね。</div>':view==='list'?visits.map(v=>`<div class="tm-log-card"><div class="tm-log-icon" aria-hidden="true">${v.icon}</div><div><strong>${esc(v.name)}</strong><span>${esc(v.date)} · ${esc(v.weather)}</span></div></div>`).join(''):view==='table'?`<table class="tm-table"><thead><tr><th>いつ</th><th>どこへ</th><th>天気</th></tr></thead><tbody>${visits.map(v=>`<tr><td>${esc(v.date)}</td><td>${esc(v.name)}</td><td>${esc(v.weather)}</td></tr>`).join('')}</tbody></table>`:mapPanel(allSpots().filter(p=>visits.some(v=>v.name===p.name)))}`}
+  function render(){main.innerHTML=state.screen==='home'?home():state.screen==='wish'?wish():state.screen==='plan'?plan():history();root.querySelectorAll('.tm-nav [data-screen]').forEach(b=>{if(b.dataset.screen===state.screen)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')})}
+  root.addEventListener('click',e=>{const b=e.target.closest('button');if(!b||!root.contains(b))return;if(b.dataset.screen){state.screen=b.dataset.screen;state.toast='';state.mapPick='';render();return}if(b.dataset.condition){state.condition=b.dataset.condition;state.suggested=false;render();return}if(b.dataset.day){state.day=Number(b.dataset.day);render();return}if(b.dataset.view){state.historyView=b.dataset.view;state.mapPick='';render();return}if(b.dataset.spotView){state.spotView=b.dataset.spotView;state.mapPick='';render();return}if(b.dataset.spotFilter){state.spotFilter=b.dataset.spotFilter;state.mapPick='';render();return}if(b.dataset.planSection){state.planSection=b.dataset.planSection;state.toast='';render();return}if(b.dataset.transport){state.transportMode=b.dataset.transport;render();return}if(b.dataset.routeDir){state.routeDir=b.dataset.routeDir;render();return}if(b.dataset.mapPick){state.mapPick=b.dataset.mapPick;render();return}const a=b.dataset.action;if(a==='add'){modal.hidden=false;root.querySelector('#tm-place').value='';root.querySelector('.tm-modal-error').hidden=true;root.querySelector('#tm-place').focus()}else if(a==='close'){modal.hidden=true}else if(a==='save-place'){const field=root.querySelector('#tm-place');const name=field.value.trim();if(!name){root.querySelector('.tm-modal-error').hidden=false;field.focus();return}const region=root.querySelector('#tm-region').value;state.places.unshift({name,icon:'🌈',tone:'yellow',meta:region+' · 新しく追加した旅のたね',region});modal.hidden=true;state.screen='wish';state.spotView='map';state.spotFilter='all';render()}else if(a==='suggest'){const q=state.query.toLowerCase();if(q.includes('白浜')||q.includes('1泊'))state.condition='overnight';state.suggested=true;render()}else if(a==='suggest-plan'||a==='plan-place'){state.selected=b.dataset.place||'アドベンチャーワールド';state.screen='plan';state.day=1;state.planSection='itinerary';state.toast='';render()}else if(a==='save-plan'){state.toast='この画面では、しおりを保存した状態を表示しています。';render()}else if(a==='record'){state.visits.unshift({date:'サンプル',name:state.selected,weather:'☁ 未入力',icon:'🧳'});state.screen='history';state.historyView='list';render()}else if(a==='save-route'){const r=state.routes[state.routeDir];for(const [key,id] of [['from','#tm-from'],['via','#tm-via'],['to','#tm-to'],['time','#tm-time'],['memo','#tm-route-memo']])r[key]=root.querySelector(id).value.trim();state.toast='乗換メモを登録しました。';render()}else if(a==='save-car'){state.carNote=root.querySelector('#tm-car-note').value.trim();state.toast='移動メモを登録しました。';render()}else if(a==='pack-add'){const f=root.querySelector('#tm-new-pack');const name=f.value.trim();if(name){state.pack.push({name,done:false});render()}else f.focus()}else if(a==='pack-suggest'){for(const name of ['折りたたみ傘','ビニール袋'])if(!state.pack.some(p=>p.name===name))state.pack.push({name,done:false});render()}});
+  root.addEventListener('input',e=>{if(e.target.id==='tm-query')state.query=e.target.value;if(e.target.id==='tm-history-query'){state.historyQuery=e.target.value;const pos=e.target.selectionStart;render();const next=root.querySelector('#tm-history-query');next.focus();next.setSelectionRange(pos,pos)}});
+  root.addEventListener('change',e=>{if(e.target.dataset.packIndex!==undefined){state.pack[Number(e.target.dataset.packIndex)].done=e.target.checked;render()}});
+  root.addEventListener('keydown',e=>{if(e.key==='Escape'&&!modal.hidden)modal.hidden=true;if(e.key==='Enter'&&e.target.id==='tm-place'){e.preventDefault();root.querySelector('[data-action="save-place"]').click()}if(e.key==='Enter'&&e.target.id==='tm-query'){e.preventDefault();root.querySelector('[data-action="suggest"]').click()}if(e.key==='Enter'&&e.target.id==='tm-new-pack'){e.preventDefault();root.querySelector('[data-action="pack-add"]').click()}});
+  render();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+# Build output
+source/.gradle/
+source/build/
+source/app/build/
+source/local.properties
+source/.idea/
+*.iml
+
+# Signing material must never be committed (public repository)
+*.jks
+*.keystore
+SIGNING*.txt
+signing/
+
+# Node
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
