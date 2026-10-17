@@ -26,7 +26,7 @@ cd ../releases && sha256sum tabi-no-tane-0.2.0.apk > SHA256SUMS-0.2.0.txt
 1. `source/app/build.gradle` の既定 `appVersionName` を新しい版に更新
 2. 上の手順で `releases/tabi-no-tane-<version>.apk` と `SHA256SUMS-<version>.txt` を作る
 3. `docs/release-notes/v<version>.md` を書き、`CHANGELOG.md` に追記してコミット・push
-4. GitHub の Actions → **release-apk** → Run workflow（`version` に `v<version>`）。`v0.2.0-beta.1` のように `-` を含むとプレリリース（アプリの「ベータ版も含む」で検知）
+4. `releases/*.apk` を含むコミットを push すると **release-apk** が自動で走り、`build.gradle` の `appVersionName` から `v<version>` の Release を作ります（同じタグの Release が既にあれば何もしません）。手動なら Actions → **release-apk** → Run workflow（`version` に `v<version>`）、またはタグ `v<version>` の push でも可。`v0.2.0-beta.1` のように `-` を含むとプレリリース（アプリの「ベータ版も含む」で検知）
 
 versionCode は `major*10000 + minor*100 + patch` です。必ず前の版より大きくなるようにしてください。
 

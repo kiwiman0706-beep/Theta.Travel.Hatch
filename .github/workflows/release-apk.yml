@@ -6,12 +6,20 @@ name: release-apk
 # the same certificate as the distributed app, then attaches it.
 #
 #   1. Push a tag like v0.1.0, or
-#   2. Run this workflow manually with a `version` input (the tag is created).
+#   2. Run this workflow manually with a `version` input (the tag is created), or
+#   3. Push a commit that adds/changes releases/*.apk: the version is read from
+#      source/app/build.gradle (appVersionName) and published once (skipped if the
+#      release already exists). Used where tag pushes are blocked.
 #   A tag containing '-' (v0.2.0-beta.1) is published as a pre-release.
 on:
   push:
     tags:
       - 'v*'
+    branches:
+      - '**'
+    paths:
+      - 'releases/*.apk'
+      - '.github/workflows/release-apk.yml'
   workflow_dispatch:
     inputs:
       version:
@@ -23,7 +31,7 @@ permissions:
   contents: write
 
 env:
-  RELEASE_TAG: ${{ github.event.inputs.version || github.ref_name }}
+  INPUT_TAG: ${{ github.event.inputs.version || (github.ref_type == 'tag' && github.ref_name) || '' }}
   PACKAGE: jp.theta.travelhatch
   # Distribution certificate of jp.theta.travelhatch. A mismatch means the APK would
   # not install over the existing app — fail loudly.
@@ -35,7 +43,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Resolve tag
+        id: tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="$INPUT_TAG"
+          if [ -z "$TAG" ]; then
+            TAG="v$(sed -nE "s/.*findProperty\('appVersionName'\) \?: '([^']+)'.*/\1/p" source/app/build.gradle)"
+            [ "$TAG" != "v" ] || { echo "::error::appVersionName not found"; exit 1; }
+            if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+              echo "Release $TAG already exists; nothing to do."
+              echo "skip=true" >> "$GITHUB_OUTPUT"
+            fi
+          fi
+          echo "RELEASE_TAG=$TAG" >> "$GITHUB_ENV"
+
       - name: Locate APK
+        if: steps.tag.outputs.skip != 'true'
         run: |
           VERSION="${RELEASE_TAG#v}"
           APK="releases/tabi-no-tane-${VERSION}.apk"
@@ -45,6 +70,7 @@ jobs:
           echo "APK=$APK" >> "$GITHUB_ENV"
 
       - name: Verify signature, certificate, package and version
+        if: steps.tag.outputs.skip != 'true'
         run: |
           BT="$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)"
           "$BT/apksigner" verify --verbose --print-certs "$APK" | tee verify.txt
@@ -59,6 +85,7 @@ jobs:
             || { echo "::error::APK versionName does not match tag $RELEASE_TAG"; exit 1; }
 
       - name: Checksums
+        if: steps.tag.outputs.skip != 'true'
         run: |
           (cd releases && sha256sum "$(basename "$APK")") > SHA256SUMS.txt
           cat SHA256SUMS.txt
@@ -68,6 +95,7 @@ jobs:
           fi
 
       - name: Publish GitHub Release
+        if: steps.tag.outputs.skip != 'true'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.RELEASE_TAG }}
