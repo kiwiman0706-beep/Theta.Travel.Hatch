@@ -152,7 +152,7 @@ public class NativeBridge {
                 conn.setConnectTimeout(15000);
                 conn.setReadTimeout(60000);
                 conn.setRequestMethod("POST".equals(method) ? "POST" : "GET");
-                conn.setRequestProperty("User-Agent", "TabiNoTane/" + version() + " (Theta.Travel.Hatch; Android)");
+                conn.setRequestProperty("User-Agent", "TravelHatch/" + version() + " (Theta.Travel.Hatch; Android)");
                 if (headersJson != null && !headersJson.isEmpty()) {
                     JSONObject h = new JSONObject(headersJson);
                     for (Iterator<String> it = h.keys(); it.hasNext(); ) {

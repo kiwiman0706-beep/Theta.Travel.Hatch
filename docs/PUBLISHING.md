@@ -19,12 +19,12 @@ export TRAVEL_STORE_PASSWORD=...
 export TRAVEL_KEY_ALIAS=travelhatch
 export TRAVEL_KEY_PASSWORD=...
 ./gradlew assembleRelease -PappVersionName=0.2.0     # versionCode は 0.2.0 → 200 を自動計算
-cp app/build/outputs/apk/release/app-release.apk ../releases/tabi-no-tane-0.2.0.apk
-cd ../releases && sha256sum tabi-no-tane-0.2.0.apk > SHA256SUMS-0.2.0.txt
+cp app/build/outputs/apk/release/app-release.apk ../releases/TravelHatch-0.2.0.apk
+cd ../releases && sha256sum TravelHatch-0.2.0.apk > SHA256SUMS-0.2.0.txt
 ```
 
 1. `source/app/build.gradle` の既定 `appVersionName` を新しい版に更新
-2. 上の手順で `releases/tabi-no-tane-<version>.apk` と `SHA256SUMS-<version>.txt` を作る
+2. 上の手順で `releases/TravelHatch-<version>.apk` と `SHA256SUMS-<version>.txt` を作る
 3. `docs/release-notes/v<version>.md` を書き、`CHANGELOG.md` に追記してコミット・push
 4. `releases/*.apk` を含むコミットを push すると **release-apk** が自動で走り、`build.gradle` の `appVersionName` から `v<version>` の Release を作ります（同じタグの Release が既にあれば何もしません）。手動なら Actions → **release-apk** → Run workflow（`version` に `v<version>`）、またはタグ `v<version>` の push でも可。`v0.2.0-beta.1` のように `-` を含むとプレリリース（アプリの「ベータ版も含む」で検知）
 

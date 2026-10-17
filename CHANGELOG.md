@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1（versionCode 101）— 2026-10-17
+
+- Theta.xxx.Hatch の命名規約に合わせて改名：アプリ表示名 **TravelHatch**、APK 名 `TravelHatch-x.y.z.apk`、ヘッダー「TravelHatch／THETA · たびのたね」
+- 書き出しファイル名を `travelhatch-backup-日付.json` などに変更（中身の形式は同じ。0.1.0 のバックアップもそのまま復元可）
+- package `jp.theta.travelhatch` と署名鍵は 0.1.0 と同じため、上書き更新でデータはそのまま残る
+
 ## 0.1.0（versionCode 100）— 2026-10-17
 
 最初の試作APK。Theta.Travel.Hatch として引き継ぎ、GitHub Releases で公開。

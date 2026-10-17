@@ -1,6 +1,6 @@
 # Theta.xxx.Hatch 要件に合わせる次の構想（案）
 
-作成：2026-10-17。対象：たびのたね 0.1.0（versionCode 100）を Theta.Travel.Hatch リポジトリで継続開発するための構想。
+作成：2026-10-17。対象：TravelHatch（旧称たびのたね）0.1.1（versionCode 101）を Theta.Travel.Hatch リポジトリで継続開発するための構想。
 **これは提案です。** 確定要望は `docs/handoff/requirements/user-requests.md` の原文だけです。
 
 ## 1. 「Theta.xxx.Hatch」の要件をどう読み取ったか
@@ -9,12 +9,12 @@
 
 | # | シリーズ共通の規約 | Theta.Travel.Hatch での要件（案） | 0.1.0 の現状 |
 | --- | --- | --- | --- |
-| T1 | 識別子 `Theta.<Name>Hatch`、Publisher `Theta` | 表示名「たびのたね」＋ヘッダーに THETA TRAVEL HATCH。package は新規なので最初から `jp.theta.travelhatch` | **対応済み**（既存インストールが無いため改名の制約なし） |
+| T1 | 識別子 `Theta.<Name>Hatch`、Publisher `Theta` | 表示名 `TravelHatch`（DeskHatch に倣う）、package `jp.theta.travelhatch`、APK 名 `TravelHatch-x.y.z.apk`。「たびのたね」はサブタイトルとして残す | **0.1.1 で対応**（0.1.0 は表示名が「たびのたね」のままだった。同じ package・鍵なので上書き更新でデータ保持） |
 | T2 | 公開リポジトリ＋GitHub Releases で配布 | APK を Releases で配布 | **v0.1.0 で対応** |
 | T3 | タグ or 手動実行で Actions がビルド→Release | CI でビルド・署名・公開まで | ビルド・テスト・Lint は CI 済み。署名は手元、CI は証明書検証と公開のみ |
 | T4 | stable／beta（`-beta` タグ＝プレリリース） | 同じ2チャネル | ワークフローは `-` 付きタグをプレリリース扱い。アプリ側に「ベータ版も含む」設定あり。運用は未開始 |
 | T5 | アプリ内自動更新 | Releases を確認→取得→インストール | **確認とダウンロードページを開くところまで**。取得・検証・インストールは未対応 |
-| T6 | パッケージマネージャー登録 | Android 相当：Obtainium 対応 | APK 名を `tabi-no-tane-x.y.z.apk` に固定、README に案内。動作確認は未実施 |
+| T6 | パッケージマネージャー登録 | Android 相当：Obtainium 対応 | APK 名を `TravelHatch-x.y.z.apk` に固定（0.1.1〜）、README に案内。動作確認は未実施 |
 | T7 | 日本語／英語 UI | 日英 UI | 日本語のみ |
 | T8 | README（バッジ・手順）、CHANGELOG、PUBLISHING.md | 同等の文書一式 | README・CHANGELOG・PUBLISHING・実装状況・実機チェックリスト。バッジ・スクリーンショットは未 |
 | T9 | プライバシーポリシー、GitHub Pages LP・デモ | 同等。**デモはアプリの画面そのもの**（ブラウザでも localStorage で動く作り） | README にプライバシーの要点のみ。Pages 未公開 |
@@ -23,7 +23,7 @@
 | T12 | 署名鍵を Secrets で受けて CI 署名 | 同左 | **鍵は新規作成してユーザーに渡し済み**。Secrets 未登録 |
 
 ### 他の Hatch との違い
-- **最初から Theta 名義で作れた。** Item/Label/DoorPhoto は既存 package と署名の継続が制約だったが、たびのたねは新規なので package・鍵とも Theta 用に揃っている。
+- **最初から Theta 名義で作れた。** Item/Label/DoorPhoto は既存 package と署名の継続が制約だったが、TravelHatch は新規なので package・鍵とも Theta 用に揃っている。
 - **Web 画面＋薄いネイティブ層の構成。** 画面はそのままブラウザで動くので、T9 のライブデモ・T10 の UI テスト・将来の PC 表示（構想の第3段階）を同じコードで賄える。
 - **外部 API への依存が多い。** 地図・位置検索・天気・Gemini・将来の経路/乗換。各サービスの規約・料金・キーの扱いが要件（T9 のプライバシー、配布形態）に直結する。
 

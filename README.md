@@ -1,21 +1,21 @@
-# Theta.Travel.Hatch — たびのたね
+# Theta.Travel.Hatch — TravelHatch
 
-「行ってみたい」を気軽に貯めて、雨・午後から・1泊などの条件で行き先を選び、旅のしおりから実際の思い出までを一続きで残す Android アプリです。
+**TravelHatch**（旧称：たびのたね）は、「行ってみたい」を気軽に貯めて、雨・午後から・1泊などの条件で行き先を選び、旅のしおりから実際の思い出までを一続きで残す Android アプリです。
 
-- 最新版：**0.1.0（versionCode 100）** — [GitHub Releases](https://github.com/kiwiman0706-beep/Theta.Travel.Hatch/releases/latest)（`tabi-no-tane-0.1.0.apk`）
+- 最新版：**0.1.1（versionCode 101）** — [GitHub Releases](https://github.com/kiwiman0706-beep/Theta.Travel.Hatch/releases/latest)（`TravelHatch-0.1.1.apk`）
 - package：`jp.theta.travelhatch`／Android 9（API 28）以上
 - 署名：APK Signature Scheme v3、証明書 SHA-256 `049ca448c59a75ad4e7202cefa0b0559b31b8a8eecca0a87dc622353c42a60c0`
 - **実機での動作確認はまだです。** ロジックとUIはブラウザで自動テスト済みですが、Androidの実機・エミュレーターでは確認していません。最初に [実機確認チェックリスト](docs/REAL_DEVICE_CHECKLIST.md) を一巡してください。
 
 ## インストール
 
-1. スマホで [**tabi-no-tane-0.1.0.apk をダウンロード**](https://github.com/kiwiman0706-beep/Theta.Travel.Hatch/releases/download/v0.1.0/tabi-no-tane-0.1.0.apk)（他の版は [Releases](https://github.com/kiwiman0706-beep/Theta.Travel.Hatch/releases)）
+1. スマホで [**TravelHatch-0.1.1.apk をダウンロード**](https://github.com/kiwiman0706-beep/Theta.Travel.Hatch/releases/download/v0.1.1/TravelHatch-0.1.1.apk)（他の版は [Releases](https://github.com/kiwiman0706-beep/Theta.Travel.Hatch/releases)）
 2. 「提供元不明のアプリ」のインストールを許可して開く
-3. 2回目以降は**アンインストールせずに上書き**します（データは端末内に残ります）
+3. 2回目以降は**アンインストールせずに上書き**します（データは端末内に残ります）。0.1.0（「たびのたね」表示）からも上書きでそのまま更新できます
 
 [Obtainium](https://github.com/ImranR98/Obtainium) を使う場合は、このリポジトリのURLを追加すると Releases の新しい版を検知できます。
 
-## 0.1.0 でできること
+## できること（0.1.x）
 
 | 画面 | 内容 |
 | --- | --- |

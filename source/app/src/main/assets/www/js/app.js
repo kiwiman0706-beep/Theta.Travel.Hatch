@@ -1,4 +1,4 @@
-/* たびのたね — UI layer. State lives in S (persisted via TabiNativeApi), view state in ui. */
+/* Theta.Travel.Hatch — UI layer. State lives in S (persisted via TabiNativeApi), view state in ui. */
 (function () {
   'use strict';
   const C = window.TabiCore;
@@ -796,7 +796,7 @@
       <p class="hint" id="update-status">いまの版：${esc(app.versionName)}（${esc(app.package)}）</p>
 
       <div class="section-head"><h2>このアプリについて</h2></div>
-      <p class="hint">たびのたね — Theta.Travel.Hatch<br>地図：国土地理院 地理院タイル / © OpenStreetMap contributors。位置検索：Nominatim（OpenStreetMap）・国土地理院 住所検索。天気：Open-Meteo.com（CC BY 4.0）。<br>Leaflet（BSD-2-Clause）、Leaflet.markercluster（MIT）を使用しています。<br>通信するのは地図・位置検索・天気・Gemini（設定時）・更新確認のときだけです。登録内容を開発者に送信することはありません。</p>
+      <p class="hint">TravelHatch（Theta.Travel.Hatch）— 旅のたねを貯めて、しおりと思い出に<br>地図：国土地理院 地理院タイル / © OpenStreetMap contributors。位置検索：Nominatim（OpenStreetMap）・国土地理院 住所検索。天気：Open-Meteo.com（CC BY 4.0）。<br>Leaflet（BSD-2-Clause）、Leaflet.markercluster（MIT）を使用しています。<br>通信するのは地図・位置検索・天気・Gemini（設定時）・更新確認のときだけです。登録内容を開発者に送信することはありません。</p>
       <button class="text-link" type="button" data-action="open-url" data-url="https://github.com/${REPO}">GitHub リポジトリ →</button>`,
     `<button class="primary active" type="button" data-action="save-settings">保存する</button>`);
   }
@@ -902,7 +902,7 @@
       });
     }
     if (p.packing.length) lines.push('', '■ 持ち物', p.packing.map((x) => `${x.done ? '☑' : '☐'} ${x.name}${x.qty > 1 ? ' ×' + x.qty : ''}`).join('\n'));
-    lines.push('', '— たびのたね');
+    lines.push('', '— TravelHatch');
     return lines.join('\n');
   }
 
@@ -1050,10 +1050,10 @@
     'save-settings': () => saveSettings(),
     'check-update': () => checkUpdate(),
     'export-json': async () => {
-      try { const r = await N.exportFile(`tabi-no-tane-backup-${C.isoDate(new Date())}.json`, 'application/json', C.backupJson(S, app)); if (r) toast('書き出しました'); } catch (e) { toast('書き出せませんでした'); }
+      try { const r = await N.exportFile(`travelhatch-backup-${C.isoDate(new Date())}.json`, 'application/json', C.backupJson(S, app)); if (r) toast('書き出しました'); } catch (e) { toast('書き出せませんでした'); }
     },
-    'export-visits': async () => { try { if (await N.exportFile(`tabi-no-tane-visits-${C.isoDate(new Date())}.csv`, 'text/csv', C.visitsCsv(S))) toast('書き出しました'); } catch (e) { toast('書き出せませんでした'); } },
-    'export-spots': async () => { try { if (await N.exportFile(`tabi-no-tane-spots-${C.isoDate(new Date())}.csv`, 'text/csv', C.spotsCsv(S))) toast('書き出しました'); } catch (e) { toast('書き出せませんでした'); } },
+    'export-visits': async () => { try { if (await N.exportFile(`travelhatch-visits-${C.isoDate(new Date())}.csv`, 'text/csv', C.visitsCsv(S))) toast('書き出しました'); } catch (e) { toast('書き出せませんでした'); } },
+    'export-spots': async () => { try { if (await N.exportFile(`travelhatch-spots-${C.isoDate(new Date())}.csv`, 'text/csv', C.spotsCsv(S))) toast('書き出しました'); } catch (e) { toast('書き出せませんでした'); } },
     'import-json': async () => {
       try {
         const text = await N.importFile();

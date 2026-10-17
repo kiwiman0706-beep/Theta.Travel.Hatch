@@ -63,7 +63,7 @@ jobs:
         if: steps.tag.outputs.skip != 'true'
         run: |
           VERSION="${RELEASE_TAG#v}"
-          APK="releases/tabi-no-tane-${VERSION}.apk"
+          APK="releases/TravelHatch-${VERSION}.apk"
           [ -f "$APK" ] || { echo "::error::$APK not found"; exit 1; }
           [ -f "docs/release-notes/${RELEASE_TAG}.md" ] || { echo "::error::docs/release-notes/${RELEASE_TAG}.md not found"; exit 1; }
           echo "VERSION=$VERSION" >> "$GITHUB_ENV"
@@ -100,7 +100,7 @@ jobs:
         with:
           tag_name: ${{ env.RELEASE_TAG }}
           target_commitish: ${{ github.sha }}
-          name: たびのたね ${{ env.VERSION }}（Theta.Travel.Hatch）
+          name: TravelHatch ${{ env.VERSION }}（Theta.Travel.Hatch）
           body_path: docs/release-notes/${{ env.RELEASE_TAG }}.md
           prerelease: ${{ contains(env.RELEASE_TAG, '-') }}
           files: |

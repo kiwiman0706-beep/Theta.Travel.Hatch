@@ -1,4 +1,4 @@
-# たびのたね — Android プロジェクト
+# TravelHatch — Android プロジェクト
 
 Android Studio で **この `source/` フォルダ** を開いてください。
 

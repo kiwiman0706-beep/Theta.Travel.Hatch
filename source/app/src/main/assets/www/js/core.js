@@ -1,4 +1,4 @@
-/* たびのたね — pure data/logic layer. No DOM access, so it runs in Node for tests. */
+/* Theta.Travel.Hatch — pure data/logic layer. No DOM access, so it runs in Node for tests. */
 (function (root) {
   'use strict';
 

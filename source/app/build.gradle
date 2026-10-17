@@ -4,7 +4,7 @@ plugins {
 
 // versionName/versionCode can be overridden from CI: -PappVersionName=0.2.0
 // versionCode = major*10000 + minor*100 + patch (0.1.0 -> 100)
-def appVersionName = project.findProperty('appVersionName') ?: '0.1.0'
+def appVersionName = project.findProperty('appVersionName') ?: '0.1.1'
 def parts = appVersionName.tokenize('-')[0].tokenize('.').collect { it as int }
 def appVersionCode = parts[0] * 10000 + parts[1] * 100 + parts[2]
 
